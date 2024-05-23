@@ -19,27 +19,49 @@ button {
 }
 
 .button-group {
-  
   margin-bottom: 20px;
 }
 
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
+  position: absolute;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.modal-content {
+  overflow-y: auto; /* Добавляем вертикальную полосу прокрутки */
+  max-height: 200px; /* Устанавливаем максимальную высоту контейнера для полосы прокрутки */
+  padding-right: 15px; /* Добавляем дополнительное пространство справа для учета ширины вертикальной полосы прокрутки */
+  
+}
+
+/* Стили для самой полосы прокрутки */
+.modal-content::-webkit-scrollbar {
+  width: 8px; /* Ширина полосы прокрутки */
+  margin-right: 15px; /* Отступ справа от полосы прокрутки */
+  height: 115px;
+  
+}
+
+/* Стили для трека полосы прокрутки */
+.modal-content::-webkit-scrollbar-track {
+  background-color: transparent; /* Убираем задний фон */
+}
+
+/* Стили для полосы прокрутки */
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #E3E3E3; /* Цвет полосы прокрутки */
+  border-radius: 8px; /* Скругление углов */
+}
+
+
+.modal-content input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
 }
