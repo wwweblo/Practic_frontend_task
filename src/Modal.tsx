@@ -1,7 +1,6 @@
-// Modal.tsx
 import React, { useState } from 'react';
 import { Phone } from './PhonesData';
-
+import styles from './Styles/Modal.module.css';
 interface ModalProps {
   phones: Phone[];
   selectPhone: (phone: Phone) => void;
@@ -16,18 +15,21 @@ function Modal({ phones, selectPhone, position }: ModalProps) {
   );
 
   return (
-    <div className="modal" style={{ top: position.top, left: position.left }}>
-      <div className="modal-content">
+    <div className={styles.modal} style={{ top: position.top, left: position.left }}>
+      <div className={styles.modalContent}>
         <input
+          className={styles.searchInput}
           type="text"
-          placeholder="Поиск..."
+          placeholder="Поиск"
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
         />
         {filteredPhones.map((phone, index) => (
-          <div key={index} style={{ display: 'flex', alignItems: 'center', margin: '10px 0' }}>
-            <button onClick={() => selectPhone(phone)} style={{ marginRight: '10px' }}>Выбрать</button>
-            <img src={phone.image} alt={phone.name} style={{ height: '50px', marginRight: '10px' }} />
+          <div key={index} className={styles.phoneItem}>
+            <button className={styles.selectButton} onClick={() => selectPhone(phone)}>
+              <img src="src/assets/ic_change.svg" alt="Выбрать" />
+            </button>
+            <img src={phone.image} alt={phone.name} className={styles.phoneImage} />
             <div>{phone.name}</div>
           </div>
         ))}

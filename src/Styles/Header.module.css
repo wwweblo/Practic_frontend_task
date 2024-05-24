@@ -11,6 +11,7 @@
     color: #0d5adc;
     font-weight: bold;
     font-size: 18px;
+    margin-left: 50px;
 }
 
 .right-nav {
@@ -29,6 +30,6 @@
 
 .leftSidedImage {
     height: 20px;
-    margin-right: 10px; /* Отступ справа от иконки */
+    margin-right: 10px;
 }
 
