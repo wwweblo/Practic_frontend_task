@@ -16,13 +16,12 @@ function ComparisonTable() {
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     const top = rect.bottom + window.scrollY;
     let left = rect.left + window.scrollX;
-    
-    // Adjust the left position if the modal would go off screen
-    const modalWidth = 300; // Assume a fixed width for the modal (adjust as necessary)
+
+    const modalWidth = 300;
     if (left + modalWidth > window.innerWidth) {
-      left = window.innerWidth - modalWidth - 10; // 10px padding from the edge
+      left = window.innerWidth - modalWidth - 10;
     }
-    
+
     setModalPosition({ top, left });
   }
 
@@ -80,11 +79,11 @@ function ComparisonTable() {
         <thead>
           <tr>
             <th>
-              <input 
-                type="checkbox" 
-                id="displayDifferences" 
-                name="display" 
-                checked={showDifferences} 
+              <input
+                type="checkbox"
+                id="displayDifferences"
+                name="display"
+                checked={showDifferences}
                 onChange={() => setShowDifferences(!showDifferences)}
                 className='checkBox'
               />
@@ -95,9 +94,11 @@ function ComparisonTable() {
                 <div className="phone-column">
                   <div className="phone-image-wrapper">
                     <img src={phone.image} alt={phone.name} className="phone-image" />
-                    <button onClick={(event) => openModal(index, event)} className="change-button">
-                      <img src="src/assets/ic_menu.svg" alt="Изменить" className="change-icon" />
-                    </button>
+                    {phones.length < 6 && (
+                      <button onClick={(event) => openModal(index, event)} className="change-button">
+                        <img src="src/assets/ic_menu.svg" alt="Изменить" className="change-icon" />
+                      </button>
+                    )}
                   </div>
                   <div className="phone-name">{phone.name}</div>
                 </div>
@@ -120,11 +121,11 @@ function ComparisonTable() {
       </table>
       {isModalOpen && modalPosition && (
         <Modal
-        phones={phonesData.filter(phone => !phones.includes(phone))}
-        selectPhone={selectPhone}
-        closeModal={() => setIsModalOpen(false)}
-        position={modalPosition}
-      />
+          phones={phonesData.filter(phone => !phones.includes(phone))}
+          selectPhone={selectPhone}
+          closeModal={() => setIsModalOpen(false)}
+          position={modalPosition}
+        />
       )}
 
       <footer></footer>
