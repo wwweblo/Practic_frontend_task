@@ -1,17 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Phone } from './PhonesData';
 import styles from './Styles/Modal.module.css';
 
+interface Phone {
+  id: number;
+  name: string;
+  image: string;
+  feature1: string; // Производитель
+  feature2: string; // Год релиза
+  feature3: string; // Диагональ экрана (дюйм)
+  feature4: string; // Страна-производитель
+  feature5: string; // Объем памяти
+  feature6: string; // Частота обновления экрана
+  feature7: boolean; // NFC
+  feature8: boolean; // Поддержка eSIM
+  feature9: boolean; // Поддержка беспроводной зарядки
+  feature10: string; // Стоимость
+}
+
 interface ModalProps {
-  phones: Phone[];
   selectPhone: (phone: Phone) => void;
   closeModal: () => void;
   position: { top: number; left: number };
 }
 
-const Modal: React.FC<ModalProps> = ({ phones, selectPhone, closeModal, position }) => {
+const Modal: React.FC<ModalProps> = ({ selectPhone, closeModal, position }) => {
+  const [phones, setPhones] = useState<Phone[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/phones')
+      .then(response => response.json())
+      .then(data => setPhones(data))
+      .catch(error => console.error('Error fetching phone data:', error));
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

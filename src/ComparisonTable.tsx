@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from './Modal'; // Импорт компонента модального окна
-import phonesData, { Phone } from './PhonesData'; // Импорт данных о телефонах
 import './Styles/ComparisonTable.css'; // Импорт CSS файла
 
+interface Phone {
+  id: number;
+  name: string;
+  image: string;
+  feature1: string; // Производитель
+  feature2: string; // Год релиза
+  feature3: string; // Диагональ экрана (дюйм)
+  feature4: string; // Страна-производитель
+  feature5: string; // Объем памяти
+  feature6: string; // Частота обновления экрана
+  feature7: boolean; // NFC
+  feature8: boolean; // Поддержка eSIM
+  feature9: boolean; // Поддержка беспроводной зарядки
+  feature10: string; // Стоимость
+}
+
 function ComparisonTable() {
-  const [phones, setPhones] = useState<Phone[]>(phonesData.slice(0, 3));
+  const [phones, setPhones] = useState<Phone[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [currentColumnIndex, setCurrentColumnIndex] = useState<number | null>(null);
   const [showDifferences, setShowDifferences] = useState<boolean>(false);
   const [modalPosition, setModalPosition] = useState<{ top: number, left: number } | null>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/phones') //Запрас к API
+      .then(response => response.json())  //Преобразование ответа в JSON
+      .then(data => setPhones(data.slice(0, 3)))
+      .catch(error => console.error('Error fetching phone data:', error));  //Обработка ошибки
+  }, []);
 
   function openModal(index: number, event: React.MouseEvent): void {
     setCurrentColumnIndex(index);
@@ -35,9 +57,14 @@ function ComparisonTable() {
   }
 
   function changeColumns(numColumns: number): void {
-    const currentPhones = [...phones];
-    const newPhones = phonesData.filter(phone => !currentPhones.includes(phone)).slice(0, numColumns - currentPhones.length);
-    setPhones([...currentPhones, ...newPhones].slice(0, numColumns));
+    fetch('http://localhost:3000/api/phones')
+      .then(response => response.json())
+      .then(data => {
+        const currentPhones = [...phones];
+        const newPhones = data.filter((phone: Phone) => !currentPhones.some((p: Phone) => p.id === phone.id)).slice(0, numColumns - currentPhones.length);
+        setPhones([...currentPhones, ...newPhones].slice(0, numColumns));
+      })
+      .catch(error => console.error('Error fetching phone data:', error));
   }
 
   function renderBooleanIcon(value: boolean): JSX.Element {
@@ -121,7 +148,6 @@ function ComparisonTable() {
       </table>
       {isModalOpen && modalPosition && (
         <Modal
-          phones={phonesData.filter(phone => !phones.includes(phone))}
           selectPhone={selectPhone}
           closeModal={() => setIsModalOpen(false)}
           position={modalPosition}
