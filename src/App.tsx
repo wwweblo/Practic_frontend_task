@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from './Header';
-import ComparisonTable from './ComparisonTable';
+import Header from './components/header/Header';
+import ComparisonTable from './components/comparisonTable/ComparisonTable';
 import './App.css';
 
-function App(){
+function App() {
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <ComparisonTable />
     </div>
   );

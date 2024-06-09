@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './Styles/Header.module.css';
-import accountIcon from './assets/ic_account.svg';
+import styles from './Header.module.css';
+const accountIcon = 'src/assets/ic_account.svg'
 
 function Header() {
     return (
