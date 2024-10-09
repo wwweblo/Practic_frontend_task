@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Modal from '../modal/Modal'; // Импорт компонента модального окна
-import './ComparisonTable.css'; // Импорт CSS файла
-import { Phone } from '../model/phone'; // Импорт интерфейса
+import Modal from '../modal/Modal';
+import PhoneColumn from '../phoneColumn/PhoneColumn';
+import ComparisonRow from '../comparisonRow/ComparisonRow';
+import ColumnButtons from '../columnButtons/ColumnButtons';
+import './ComparisonTable.css';
+import { Phone } from '../model/phone';
 
 function ComparisonTable() {
   const [phones, setPhones] = useState<Phone[]>([]);
@@ -11,10 +14,10 @@ function ComparisonTable() {
   const [modalPosition, setModalPosition] = useState<{ top: number, left: number } | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/phones') //Запрас к API
-      .then(response => response.json())  //Преобразование ответа в JSON
+    fetch('http://localhost:3000/api/phones')
+      .then(response => response.json())
       .then(data => setPhones(data.slice(0, 3)))
-      .catch(error => console.error('Error fetching phone data:', error));  //Обработка ошибки
+      .catch(error => console.error('Error fetching phone data:', error));
   }, []);
 
   function openModal(index: number, event: React.MouseEvent): void {
@@ -62,30 +65,11 @@ function ComparisonTable() {
     return phones.every(phone => phone[key] === firstValue);
   }
 
-  function renderRow(label: string, key: keyof Phone, isBoolean?: boolean): JSX.Element | null {
-    if (showDifferences && areValuesSame(key)) return null;
-    return (
-      <tr key={label}>
-        <td>{label}</td>
-        {phones.map((phone, index) => (
-          <td key={index}>
-            {isBoolean ? renderBooleanIcon(phone[key] as boolean) : <b>{phone[key]}</b>}
-          </td>
-        ))}
-      </tr>
-    );
-  }
-
   return (
     <div>
       <div className="header">
         <div className="title">Смартфоны</div>
-        <div className="button-group">
-          <span className="button-group-label">Отобразить товары:</span>
-          {[2, 3, 4, 5, 6].map((num) => (
-            <button key={num} onClick={() => changeColumns(num)}>{num}</button>
-          ))}
-        </div>
+        <ColumnButtons changeColumns={changeColumns} />
       </div>
       <table>
         <thead>
@@ -97,38 +81,35 @@ function ComparisonTable() {
                 name="display"
                 checked={showDifferences}
                 onChange={() => setShowDifferences(!showDifferences)}
-                className='checkBox'
+                className="checkBox"
               />
               <label className='checkBoxLabel' htmlFor="displayDifferences">Показать различия</label>
             </th>
             {phones.map((phone, index) => (
               <th key={index}>
-                <div className="phone-column">
-                  <div className="phone-image-wrapper">
-                    <img src={phone.image} alt={phone.name} className="phone-image" />
-                    {phones.length < 6 && (
-                      <button onClick={(event) => openModal(index, event)} className="change-button">
-                        <img src="src/assets/ic_menu.svg" alt="Изменить" className="change-icon" />
-                      </button>
-                    )}
-                  </div>
-                  <div className="phone-name">{phone.name}</div>
-                </div>
+                <PhoneColumn
+                  phone={phone}
+                  index={index}
+                  openModal={openModal}
+                  showButton={phones.length < 6}
+                />
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {renderRow('ПРОИЗВОДИТЕЛЬ', 'feature1')}
-          {renderRow('ГОД РЕЛИЗА', 'feature2')}
-          {renderRow('ДИАГОНАЛЬ ЭКРАНА (ДЮЙМ)', 'feature3')}
-          {renderRow('СТРАНА-ПРОИЗВОДИТЕЛЬ', 'feature4')}
-          {renderRow('ОБЪЕМ ПАМЯТИ', 'feature5')}
-          {renderRow('ЧАСТОТА ОБНОВЛЕНИЯ ЭКРАНА', 'feature6')}
-          {renderRow('NFC', 'feature7', true)}
-          {renderRow('ПОДДЕРЖКА ESIM', 'feature8', true)}
-          {renderRow('ПОДДЕРЖКА БЕСПРОВОДНОЙ ЗАРЯДКИ', 'feature9', true)}
-          {renderRow('СТОИМОСТЬ', 'feature10')}
+          {['ПРОИЗВОДИТЕЛЬ', 'ГОД РЕЛИЗА', 'ДИАГОНАЛЬ ЭКРАНА (ДЮЙМ)', 'СТРАНА-ПРОИЗВОДИТЕЛЬ', 'ОБЪЕМ ПАМЯТИ', 'ЧАСТОТА ОБНОВЛЕНИЯ ЭКРАНА', 'NFC', 'ПОДДЕРЖКА ESIM', 'ПОДДЕРЖКА БЕСПРОВОДНОЙ ЗАРЯДКИ', 'СТОИМОСТЬ'].map((label, index) => (
+            <ComparisonRow
+              key={index}
+              label={label}
+              phones={phones}
+              keyName={`feature${index + 1}` as keyof Phone}
+              isBoolean={index >= 6}
+              showDifferences={showDifferences}
+              renderBooleanIcon={renderBooleanIcon}
+              areValuesSame={areValuesSame}
+            />
+          ))}
         </tbody>
       </table>
       {isModalOpen && modalPosition && (
@@ -139,7 +120,6 @@ function ComparisonTable() {
         />
       )}
 
-      <footer></footer>
     </div>
   );
 }

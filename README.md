@@ -1,30 +1,44 @@
-# React + TypeScript + Vite
+# Замечания
+1. Где-то могут ехать изображения
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Едут изображения](src/assets/image-trouble.png)
 
-Currently, two official plugins are available:
+Так как все они брались из оригинального проекта Figma, для большей схожести.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. Scrollbar по разному выглядит в Firefox и Chrome
+![scrollbar firefox](src/assets/scrollbar-firefox.png)
+![scrollbar chrome](src/assets/scrollbar-chrome.png)
 
-## Expanding the ESLint configuration
+эту проблемму до конца я не победил
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+3. В колледже не уважают frontend, поэтому от греха подальше в проекте появилось api с привязкой к `posgreSQL`, как его запустить написанно ниже
 
-- Configure the top-level `parserOptions` property like this:
+
+# Как запустить проект
+
+## Api и база данных.
+1. Бэкапы базы данных `PostgreSQL` хранятся в папке `api/db-backup`. Выберите формат из которого было бы удобно восстанавлавать базу (формат бэкапа указан в названии файла) `db-backup-plain` или `db-backup-custom`
+2. При необходимости настройте подключение к базе данных в соответствии с конфигурацией вашего `PostgreSQL`, открыв `api/db.js` и изменив параметры константы `pool`
 
 ```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'phonesdb',
+    password: '8800',
+    port: 5432,
+});
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Запустите api командой
+
+```
+npm run start-api
+```
+
+
+## React приложение
+Запустите приложение командой
+```
+npm run dev
+```

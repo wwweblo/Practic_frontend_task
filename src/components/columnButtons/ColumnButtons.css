@@ -1,0 +1,32 @@
+/* Стили для группы кнопок */
+.button-group {
+    display: flex;
+    align-items: center;
+}
+
+.button-group-label {
+    color: #0D5ADC;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+  /* Стили для кнопок */
+button {
+    margin-bottom: 10px;
+}
+
+.button-group button {
+    background: none;
+    border: none;
+    color: #0D5ADC;
+    cursor: pointer;
+    transition: background-color 0.25s; /* Плавный переход */
+}
+
+.button-group button:active {
+    background-color: #f0f0f0; /* Цвет фона при нажатии */
+}
+
+.last-clicked {
+    text-decoration: underline;
+}

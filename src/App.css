@@ -9,7 +9,8 @@ table {
   background-color: #f4f9fc;
 }
 
-th, td {
+th,
+td {
   padding: 8px;
   text-align: left;
 }
@@ -53,28 +54,39 @@ button {
 }
 
 .modal-content {
-  overflow-y: auto; 
-  max-height: 300px; 
-  padding-right: 15px; 
+  overflow-y: auto;
+  max-height: 300px;
+  padding-right: 15px;
 }
 
 .modal-content::-webkit-scrollbar {
-  width: 8px; 
-  margin-right: 15px; 
+  width: 8px;
+  margin-right: 15px;
   height: 115px;
 }
 
 
 .modal-content::-webkit-scrollbar-track {
-  background-color: transparent; 
+  background-color: transparent;
 }
 
 
 .modal-content::-webkit-scrollbar-thumb {
-  background-color: #a0a0a0; 
-  border-radius: 4px; 
+  background-color: #a0a0a0;
+  border-radius: 4px;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-  background-color: #757575; 
+  background-color: #757575;
+}
+
+footer {
+  height: 200px;
+}
+
+footer p {
+  margin-top: 50px;
+  text-align: center;
+  color: #0d59dc4d;
+  font-weight: bold;
 }

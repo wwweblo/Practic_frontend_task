@@ -1,0 +1,33 @@
+/* Стили для колонок с телефонами */
+.phone-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.phone-image-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.phone-image {
+    height: 120px;
+}
+
+.change-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: -40px;
+    transform: translateY(-50%);
+}
+
+.change-icon {
+    height: 20px;
+}
+
+.phone-name {
+    margin-bottom: 50px;
+}
