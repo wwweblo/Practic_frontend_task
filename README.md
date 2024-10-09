@@ -6,6 +6,7 @@
 Так как все они брались из оригинального проекта Figma, для большей схожести.
 
 2. Scrollbar по разному выглядит в Firefox и Chrome
+
 ![scrollbar firefox](src/assets/scrollbar-firefox.png)
 ![scrollbar chrome](src/assets/scrollbar-chrome.png)
 
