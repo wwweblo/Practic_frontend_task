@@ -14,11 +14,11 @@ router.get('/', async (req, res) => {
 
 // Добавление нового телефона
 router.post('/', async (req, res) => {
-    const { name, image, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10 } = req.body;
+    const { name, image, manufacturer, year_of_issue, screen_diagonal, country_of_manufacture, memory_capacity, screen_refresh_rate, NFC, ESIM, wireless_charging, price} = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO phones (name, image, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
-            [name, image, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10]
+            'INSERT INTO phones (name, image, manufacturer, year_of_issue, screen_diagonal, country_of_manufacture, memory_capacity, screen_refresh_rate, NFC, ESIM, wireless_charging, price) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
+            [name, image, manufacturer, year_of_issue, screen_diagonal, country_of_manufacture, memory_capacity, screen_refresh_rate, NFC, ESIM, wireless_charging, price]
         );
         res.json(result.rows[0]);
     } catch (err) {
@@ -29,11 +29,11 @@ router.post('/', async (req, res) => {
 // Обновление телефона по ID
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, image, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10 } = req.body;
+    const { name, image, manufacturer, year_of_issue, screen_diagonal, country_of_manufacture, memory_capacity, screen_refresh_rate, NFC, ESIM, wireless_charging, price} = req.body;
     try {
         const result = await pool.query(
-            'UPDATE phones SET name = $1, image = $2, feature1 = $3, feature2 = $4, feature3 = $5, feature4 = $6, feature5 = $7, feature6 = $8, feature7 = $9, feature8 = $10, feature9 = $11, feature10 = $12 WHERE id = $13 RETURNING *',
-            [name, image, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10, id]
+            'UPDATE phones SET name = $1, image = $2, manufacturer = $3, year_of_issue = $4, screen_diagonal = $5, country_of_manufacture = $6, memory_capacity = $7, screen_refresh_rate = $8, NFC = $9, ESIM = $10, wireless_charging = $11, feature10 = $12 WHERE id = $13 RETURNING *',
+            [name, image, manufacturer, year_of_issue, screen_diagonal, country_of_manufacture, memory_capacity, screen_refresh_rate, NFC, ESIM, wireless_charging, price, id]
         );
         res.json(result.rows[0]);
     } catch (err) {

@@ -3,7 +3,7 @@
 
 ![Едут изображения](src/assets/image-trouble.png)
 
-Так как все они брались из оригинального проекта Figma, для большей схожести.
+Так как все они брались из [оригинального проекта Figma](https://www.figma.com/design/2PjP1QPRvqx2l2Cpt83efn/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3?node-id=0-1&node-type=canvas), для соответствия макету.
 
 2. Scrollbar по разному выглядит в Firefox и Chrome
 

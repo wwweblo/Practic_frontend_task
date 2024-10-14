@@ -98,13 +98,24 @@ function ComparisonTable() {
           </tr>
         </thead>
         <tbody>
-          {['ПРОИЗВОДИТЕЛЬ', 'ГОД РЕЛИЗА', 'ДИАГОНАЛЬ ЭКРАНА (ДЮЙМ)', 'СТРАНА-ПРОИЗВОДИТЕЛЬ', 'ОБЪЕМ ПАМЯТИ', 'ЧАСТОТА ОБНОВЛЕНИЯ ЭКРАНА', 'NFC', 'ПОДДЕРЖКА ESIM', 'ПОДДЕРЖКА БЕСПРОВОДНОЙ ЗАРЯДКИ', 'СТОИМОСТЬ'].map((label, index) => (
+          {[
+            { label: 'ПРОИЗВОДИТЕЛЬ', key: 'manufacturer' },
+            { label: 'ГОД РЕЛИЗА', key: 'year_of_issue' },
+            { label: 'ДИАГОНАЛЬ ЭКРАНА (ДЮЙМ)', key: 'screen_diagonal' },
+            { label: 'СТРАНА-ПРОИЗВОДИТЕЛЬ', key: 'country_of_manufacture' },
+            { label: 'ОБЪЕМ ПАМЯТИ', key: 'memory_capacity' },
+            { label: 'ЧАСТОТА ОБНОВЛЕНИЯ ЭКРАНА', key: 'screen_refresh_rate' },
+            { label: 'NFC', key: 'NFC' },
+            { label: 'ПОДДЕРЖКА ESIM', key: 'ESIM' },
+            { label: 'ПОДДЕРЖКА БЕСПРОВОДНОЙ ЗАРЯДКИ', key: 'wireless_charging' },
+            { label: 'СТОИМОСТЬ', key: 'price' }
+          ].map(({ label, key }, index) => (
             <ComparisonRow
               key={index}
               label={label}
               phones={phones}
-              keyName={`feature${index + 1}` as keyof Phone}
-              isBoolean={index >= 6}
+              keyName={key as keyof Phone}
+              isBoolean={index >= 6}  // С 6-го индекса начинается булевы значения
               showDifferences={showDifferences}
               renderBooleanIcon={renderBooleanIcon}
               areValuesSame={areValuesSame}

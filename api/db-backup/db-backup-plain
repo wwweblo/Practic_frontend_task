@@ -5,7 +5,7 @@
 -- Dumped from database version 16.1
 -- Dumped by pg_dump version 16.1
 
--- Started on 2024-10-09 16:45:47
+-- Started on 2024-10-14 10:40:22
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,16 +31,16 @@ CREATE TABLE public.phones (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     image character varying(255) NOT NULL,
-    feature1 character varying(255) NOT NULL,
-    feature2 character varying(255) NOT NULL,
-    feature3 character varying(255) NOT NULL,
-    feature4 character varying(255) NOT NULL,
-    feature5 character varying(255) NOT NULL,
-    feature6 character varying(255) NOT NULL,
-    feature7 boolean NOT NULL,
-    feature8 boolean NOT NULL,
-    feature9 boolean NOT NULL,
-    feature10 character varying(255) NOT NULL
+    manufacturer character varying(255) NOT NULL,
+    year_of_issue character varying(255) NOT NULL,
+    screen_diagonal character varying(255) NOT NULL,
+    country_of_manufacture character varying(255) NOT NULL,
+    memory_capacity character varying(255) NOT NULL,
+    screen_refresh_rate character varying(255) NOT NULL,
+    nfc boolean NOT NULL,
+    esim boolean NOT NULL,
+    wireless_charging boolean NOT NULL,
+    price character varying(255) NOT NULL
 );
 
 
@@ -63,7 +63,7 @@ CREATE SEQUENCE public.phones_id_seq
 ALTER SEQUENCE public.phones_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4840 (class 0 OID 0)
+-- TOC entry 4841 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: phones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -72,7 +72,7 @@ ALTER SEQUENCE public.phones_id_seq OWNED BY public.phones.id;
 
 
 --
--- TOC entry 4687 (class 2604 OID 42890)
+-- TOC entry 4688 (class 2604 OID 42890)
 -- Name: phones id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -80,12 +80,12 @@ ALTER TABLE ONLY public.phones ALTER COLUMN id SET DEFAULT nextval('public.phone
 
 
 --
--- TOC entry 4834 (class 0 OID 42887)
+-- TOC entry 4835 (class 0 OID 42887)
 -- Dependencies: 216
 -- Data for Name: phones; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.phones (id, name, image, feature1, feature2, feature3, feature4, feature5, feature6, feature7, feature8, feature9, feature10) FROM stdin;
+COPY public.phones (id, name, image, manufacturer, year_of_issue, screen_diagonal, country_of_manufacture, memory_capacity, screen_refresh_rate, nfc, esim, wireless_charging, price) FROM stdin;
 1	Apple Iphone 12	src/assets/Apple_iphone_12.png	Apple	2020	6.1	Китай	64 ГБ / 128 ГБ / 256 ГБ	60 Гц	t	f	f	$799
 2	Xiaomi Mi 11 Lite	src/assets/Xiaomi_Mi_11_Lite.png	Xiaomi	2021	6.55	Китай	64 ГБ / 128 ГБ	90 Гц	t	f	f	$299
 3	Samsung Galaxy A72	src/assets/samsing_a72.png	Samsung	2021	6.7	Вьетнам	128 ГБ / 256 ГБ	90 Гц	t	f	f	$449
@@ -96,7 +96,7 @@ COPY public.phones (id, name, image, feature1, feature2, feature3, feature4, fea
 
 
 --
--- TOC entry 4841 (class 0 OID 0)
+-- TOC entry 4842 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: phones_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -105,7 +105,7 @@ SELECT pg_catalog.setval('public.phones_id_seq', 1, false);
 
 
 --
--- TOC entry 4689 (class 2606 OID 42894)
+-- TOC entry 4690 (class 2606 OID 42894)
 -- Name: phones phones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -113,7 +113,7 @@ ALTER TABLE ONLY public.phones
     ADD CONSTRAINT phones_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-10-09 16:45:49
+-- Completed on 2024-10-14 10:40:22
 
 --
 -- PostgreSQL database dump complete
