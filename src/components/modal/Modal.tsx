@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Modal.module.css';
 import { Phone } from '../model/phone';
-import phonesData from '../model/phones.json';
+import phonesData from '../../assets/phones.json';
 
 interface ModalProps {
   selectPhone: (phone: Phone) => void;

@@ -5,7 +5,7 @@ import ComparisonRow from '../comparisonRow/ComparisonRow';
 import ColumnButtons from '../columnButtons/ColumnButtons';
 import './ComparisonTable.css';
 import { Phone } from '../model/phone';
-import phonesData from '../model/phones.json';
+import phonesData from '../../assets/phones.json';
 
 function ComparisonTable() {
   const [phones, setPhones] = useState<Phone[]>([]);
@@ -84,7 +84,7 @@ function ComparisonTable() {
                   phone={phone}
                   index={index}
                   openModal={openModal}
-                  showButton={phones.length < 6 }
+                  showButton={phones.length < 6}
                 />
               </th>
             ))}
