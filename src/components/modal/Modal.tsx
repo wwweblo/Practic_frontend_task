@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Modal.module.css';
 import { Phone } from '../model/phone';
+import phonesData from '../model/phones.json';
 
 interface ModalProps {
   selectPhone: (phone: Phone) => void;
@@ -14,10 +15,7 @@ const Modal: React.FC<ModalProps> = ({ selectPhone, closeModal, position }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/phones')
-      .then(response => response.json())
-      .then(data => setPhones(data))
-      .catch(error => console.error('Error fetching phone data:', error));
+    setPhones(phonesData);
   }, []);
 
   useEffect(() => {

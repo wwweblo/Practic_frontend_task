@@ -5,6 +5,7 @@ import ComparisonRow from '../comparisonRow/ComparisonRow';
 import ColumnButtons from '../columnButtons/ColumnButtons';
 import './ComparisonTable.css';
 import { Phone } from '../model/phone';
+import phonesData from '../model/phones.json';
 
 function ComparisonTable() {
   const [phones, setPhones] = useState<Phone[]>([]);
@@ -14,10 +15,7 @@ function ComparisonTable() {
   const [modalPosition, setModalPosition] = useState<{ top: number, left: number } | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/phones')
-      .then(response => response.json())
-      .then(data => setPhones(data.slice(0, 3)))
-      .catch(error => console.error('Error fetching phone data:', error));
+    setPhones(phonesData.slice(0, 3));
   }, []);
 
   function openModal(index: number, event: React.MouseEvent): void {
@@ -45,14 +43,9 @@ function ComparisonTable() {
   }
 
   function changeColumns(numColumns: number): void {
-    fetch('http://localhost:3000/api/phones')
-      .then(response => response.json())
-      .then(data => {
-        const currentPhones = [...phones];
-        const newPhones = data.filter((phone: Phone) => !currentPhones.some((p: Phone) => p.id === phone.id)).slice(0, numColumns - currentPhones.length);
-        setPhones([...currentPhones, ...newPhones].slice(0, numColumns));
-      })
-      .catch(error => console.error('Error fetching phone data:', error));
+    const currentPhones = [...phones];
+    const newPhones = phonesData.filter((phone: Phone) => !currentPhones.some((p: Phone) => p.id === phone.id)).slice(0, numColumns - currentPhones.length);
+    setPhones([...currentPhones, ...newPhones].slice(0, numColumns));
   }
 
   function renderBooleanIcon(value: boolean): JSX.Element {
@@ -91,7 +84,7 @@ function ComparisonTable() {
                   phone={phone}
                   index={index}
                   openModal={openModal}
-                  showButton={phones.length < 6}
+                  showButton={phones.length < 6 }
                 />
               </th>
             ))}
@@ -130,7 +123,6 @@ function ComparisonTable() {
           position={modalPosition}
         />
       )}
-
     </div>
   );
 }
